@@ -12,7 +12,7 @@ from rest_framework.reverse import reverse as api_reverse
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
     slug = models.SlugField(blank=True, null=True)
-    mail = models.CharField(max_length=1000)
+    
 
 def unique_slug_generator_user(instance, new_slug=None):
     """

@@ -1,0 +1,105 @@
+{% load bootstrap3%}{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="{% static 'movies/app.css' %}"/>
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript"> 
+  </script>
+  <div class="wrapper">
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__menu">
+                <a class="nav__header" href="search/"> Search</a>
+            </div>
+        </div>
+    </nav>
+  {% bootstrap_javascript %}
+  <div class="container-fluid">
+    <h1 class="title">trending movies</h1>
+    <div>
+          {% for movie in trending_movie %}
+          <a href="{% url 'details' movie.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{movie.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if trending_movie.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if trending_movie.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    <h1 class="title">popular movies</h1>
+    <div>
+          {% for movie in popular_movie %}
+          <a href="{% url 'details' movie.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{movie.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if popular.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if popular.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    <h1 class="title">top rated movies</h1>
+    <div>
+          {% for movie in top_rated_movie %}
+          <a href="{% url 'details' movie.id %}">
+            <img class="tile__img" src="https://image.tmdb.org/t/p/w342/{{movie.poster_path}}" alt="" />
+          </a>
+          {% endfor %}
+      <div>
+        {% if upcoming.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if upcoming.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    <h1 class="title">upcoming movies</h1>
+    <div>
+          {% for movie in upcoming_movie %}
+          <a href="{% url 'details' movie.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{movie.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if latest_movie.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if latest_movie.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    <h1 class="title">now playing movies</h1>
+    <div>
+          {% for movie in now_playing_movie %}
+          <a href="{% url 'details' movie.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{movie.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if now_playing_movie.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if now_playing_movie.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+  </div> 
+</body>
+</html>
+

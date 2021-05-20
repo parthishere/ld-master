@@ -1,0 +1,91 @@
+{% load bootstrap3%}{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="{% static 'movies/app.css' %}"/>
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript"> 
+  </script>
+  <div class="wrapper">
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__menu">
+                <a class="nav__header" href="search/"> Search</a>
+            </div>
+        </div>
+    </nav>
+  {% bootstrap_javascript %}
+  <div class="container-fluid">
+    <h1 class="title">popular series</h1>
+    <div>
+          {% for series in popular_series %}
+          <a href="{% url 'details' series.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{series.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if popular_series.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if popular_series.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    
+    <h1 class="title">top rated series</h1>
+    <div>
+          {% for series in top_rated_series%}
+          <a href="{% url 'details' series.id %}">
+            <img class="tile__img" src="https://image.tmdb.org/t/p/w342/{{series.poster_path}}" alt="" />
+          </a>
+          {% endfor %}
+      <div>
+        {% if upcoming.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if upcoming.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    <h1 class="title">airing today series</h1>
+    <div>
+          {% for series in airing_today_series %}
+          <a href="{% url 'details' series.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{series.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if airing_today_series.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if airing_today_series.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+    <h1 class="title">now playing series</h1>
+    <div>
+          {% for series in on_the_air_series %}
+          <a href="{% url 'details' series.id %}">
+            <img src="https://image.tmdb.org/t/p/w342/{{series.poster_path}}" alt="" /></a>
+          {% endfor %}
+      <div>
+        {% if on_the_air_series.has_prev %}
+          <button data-dir="prev">&lt;</button>
+        {% endif %}
+        {% if on_the_air_series.has_next %}
+          <button data-dir="next">&gt;</button>
+        {% endif %}
+      </div>
+    </div>
+  </div> 
+</body>
+</html>
+

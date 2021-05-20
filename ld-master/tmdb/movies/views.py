@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 import tmdbsimple as tmdb
+import tmdbv3api as tmdb1
 import os
 
 
@@ -45,7 +46,7 @@ def home(request):
 def search(request):
      query = str(request.GET.get('query', ''))
      if query != '':
-        search_result = tmdb.Search().movie(query=query)['results']
+        search_result = tmdb.Search().multi(query=query)['results']
         frontend = {
             "search_result": sorted(search_result, key=lambda x: x['popularity'], reverse=True),
             "has_result": (search_result != [])
@@ -88,7 +89,37 @@ def details(request, id=None):
     }
     return render(request, "details.html", frontend)
 
+def movie(request):
+    
+    query = str(request.GET.get('query', ''))
+   
+    upcoming_movie_tmdb = tmdb.Movies('upcoming')
+    upcoming_movie = upcoming_movie_tmdb.info()['results']
+    now_playing_movie_tmdb = tmdb.Movies('now_playing')
+    now_playing_movie = now_playing_movie_tmdb.info()['results']
+    popular_movie_tmdb = tmdb.Movies('popular')
+    popular_movie = popular_movie_tmdb.info()['results']
+    top_rated_movie_tmdb = tmdb.Movies('top_rated')
+    top_rated_movie = top_rated_movie_tmdb.info()['results']
+  
 
+    return render(request, "movie_page.html", { 'upcoming_movie':upcoming_movie ,'popular_movie':popular_movie, 'top_rated_movie':top_rated_movie,'now_playing_movie':now_playing_movie})
+
+def series(request):
+    
+    query = str(request.GET.get('query', ''))
+    airing_today_series_tmdb = tmdb.TV('airing_today')
+    airing_today_series = airing_today_series_tmdb.info()['results']
+    on_the_air_series_tmdb = tmdb.TV('on_the_air')
+    on_the_air_series = on_the_air_series_tmdb.info()['results']
+    popular_series_tmdb = tmdb.TV('popular')
+    popular_series = popular_series_tmdb.info()['results']
+    top_rated_series_tmdb = tmdb.TV('top_rated')
+    top_rated_series = top_rated_series_tmdb.info()['results']
+
+    
+
+    return render(request, "series_page.html", {'airing_today_series':airing_today_series ,'popular_series':popular_series, 'top_rated_series':top_rated_series,'on_the_air_series': on_the_air_series})
 
 
 
